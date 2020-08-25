@@ -47,59 +47,36 @@ if __name__ == "__main__":
 
     directory = r"C:\Users\sunee\OneDrive\Desktop\Workspace\Code_Vector Screening\codevector_screening\Linkedin_Profiles"
     fname = os.listdir(directory) 
+    fname.sort(key=lambda f: int(re.sub('\D', '', f)))
 
-    text_from_pdf = pdf_to_text(os.path.join(directory,fname[0])) #Extract text with PDF_to_text Function call
-    decoded_text = text_from_pdf.decode("utf-8")     #Decode result fromf bytes to text
-    
-
-    s = decoded_text#StringIO(decoded_text)
-    s = s.strip()
-    lines = s.split("\n")
-    non_empty_lines = [line for line in lines if line.strip() != ""]
-
-    s = ""
-    for line in non_empty_lines:
-        s += line + "\\n"
-
-    print(s)
-    with open("Output.txt", "a", encoding="utf-8") as text_file:
-        text_file.truncate(0)
-        text_file.writelines(s)
+    length = len(fname) 
 
 
-    with open("Output.txt", "r") as text_file, open("output.csv","w") as csv_file:
-        #csv_file._checkClosed
-        csv_file.truncate(0)
-        #csv_file.writecsv(text_file)
-        writer = csv.writer(csv_file,delimiter=' ', quoting=csv.QUOTE_MINIMAL)
-        #for row in text_file:
-        writer.writerow(text_file)
-
-    # file = "Output.txt"
-    # ifile  = open(file, "r")
-    # reader = csv.reader(ifile)
-    # ofile  = open('output.csv', "a")
-    # ofile.truncate(0)
-    # writer = csv.writer(ofile, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
-
-    # for row in reader:
-    #     writer.writerow(row)
-
-    # ifile.close()
-    # ofile.close()
+    for i in range(length): #Repeat each operation for each document.
+        text_from_pdf = pdf_to_text(os.path.join(directory,fname[i])) #Extract text with PDF_to_text Function call
+        decoded_text = text_from_pdf.decode("utf-8")     #Decode result fromf bytes to text
 
 
+        s = decoded_text#StringIO(decoded_text)
+        s = s.strip()
+        lines = s.split("\n")
+        non_empty_lines = [line for line in lines if line.strip() != ""]
+
+        s = ""
+        for line in non_empty_lines:
+            s += line + "\\n"
+        #s = s[:-2]
+        #print(s)
+        print(i)
+        with open("Output.txt", "a", encoding="utf-8") as text_file:
+            text_file.truncate(0)
+            text_file.writelines(s)
 
 
-    # csv = pd.read_csv("Output.txt")
-    # csv.to_csv("output.csv",index=None)
+        with open("Output.txt", "r",newline='\n') as text_file, open("output.csv","a",newline='') as csv_file:
+            #csv_file.truncate(0)
+            writer = csv.writer(csv_file,delimiter=' ', quoting=csv.QUOTE_MINIMAL)
+            writer.writerow(text_file)
 
-"""/////////////////////////////////////print repeatedly 
-    with open('output.txt', 'w',newline='\n') as f:
-        for line in s:
-            f.write(s)
-"""
-    #     writer  = csv.writer(f,delimiter='\n',quotechar=None)
-    #     #for line in s:
-    #     writer.writerow(s)
+
 
