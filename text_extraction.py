@@ -51,6 +51,12 @@ if __name__ == "__main__":
 
     length = len(fname) 
 
+    with open("output.txt", "w", encoding="utf-8") as text_file, open("output1.csv","w",newline='') as csv_file:
+        text_file.truncate(0)
+        csv_file.truncate(0)
+        writer = csv.writer(csv_file,delimiter=' ', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(["Linkedin_Profile_Text"])   
+
 
     for i in range(length): #Repeat each operation for each document.
         text_from_pdf = pdf_to_text(os.path.join(directory,fname[i])) #Extract text with PDF_to_text Function call
@@ -58,23 +64,21 @@ if __name__ == "__main__":
 
 
         s = decoded_text#StringIO(decoded_text)
-        s = s.strip()
+        s = s.lower().strip()
         lines = s.split("\n")
         non_empty_lines = [line for line in lines if line.strip() != ""]
 
         s = ""
         for line in non_empty_lines:
-            s += line + "\\n"
+            s += line + " "
         #s = s[:-2]
         #print(s)
         print(i)
-        with open("Output.txt", "a", encoding="utf-8") as text_file:
+        with open("output.txt", "a", encoding="utf-8",newline='\n') as text_file:
             text_file.truncate(0)
             text_file.writelines(s)
-
-
-        with open("Output.txt", "r",newline='\n') as text_file, open("output.csv","a",newline='') as csv_file:
-            #csv_file.truncate(0)
+         
+        with open("output.txt", "r",newline='\n') as text_file, open("output1.csv","a",newline='') as csv_file:
             writer = csv.writer(csv_file,delimiter=' ', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(text_file)
 
