@@ -1,6 +1,6 @@
-This Repository is constructed as a screeening to the course designed by Code Vector AI labs.
+The Repository consists of files required to extracting words and filtering frequent,essential words out of them from PDFs.
 
-The screening consists of four tasks as described below:
+To Use this repository, follow the below steps.
 
 ******************** EXECUTION ***********************
 
@@ -10,3 +10,11 @@ The screening consists of four tasks as described below:
 
 output.txt : Text file containing text extracted from one PDF profile.
 output1.csv : CSV file containing the data of all 50 profiles under "LinkedIn Profiles" label.
+
+3) Execution of "frequent_words.py" generates "output2.csv"
+
+output2.csv : CSV file containing the data as well as frequent words in two columns respectively.
+
+4)Execution of "essential_words.py" generates "output3.csv"
+
+output3.csv : CSV file containing the data,frequent words,essential words in three columns respectively.
