@@ -65,7 +65,7 @@ def generate_output(directory,fname,t_address,c_address):
 
 if __name__ == "__main__":
 
-    directory = r"C:\Users\sunee\OneDrive\Desktop\Workspace\Code_Vector Screening\codevector_screening\Linkedin_Profiles"
+    directory = os.path.join( os.getcwd(),r"Linkedin_Profiles" )
     fname = os.listdir(directory) 
     fname.sort(key=lambda f: int(re.sub('\D', '', f)))
  
