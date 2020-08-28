@@ -1,28 +1,18 @@
-import os
-import sys
-import re
+import os,sys
+import re,csv
 import pandas as pd
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
 from pdfminer.converter import TextConverter
 from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
-from io import BytesIO
-from io import StringIO
-import csv
+from io import BytesIO,StringIO
 
+
+#To write into text file from an object.
 def writelines(self, lines):
     self._checkClosed()
     for line in lines:
        self.write(line)
-
-# def writecsv(self,lines):
-#     self._checkClosed()
-#     writer = csv.writer(self, delimiter='\t', quoting=csv.QUOTE_MINIMAL)
-#     for row in lines:
-#          writer.writerow(row)
-
-
-
 
 #PDF to text Function. 
 def pdf_to_text(path):
@@ -42,28 +32,21 @@ def pdf_to_text(path):
     retstr.close()
     return text
 
-
-if __name__ == "__main__":
-
-    directory = r"C:\Users\sunee\OneDrive\Desktop\Workspace\Code_Vector Screening\codevector_screening\Linkedin_Profiles"
-    fname = os.listdir(directory) 
-    fname.sort(key=lambda f: int(re.sub('\D', '', f)))
-
-    length = len(fname) 
-
-    with open("output.txt", "w", encoding="utf-8") as text_file, open("output1.csv","w",newline='') as csv_file:
+#Init the files to store output
+def initiate_output_files(fname,t_address,c_address):
+    with open(t_address, "w", encoding="utf-8") as text_file, open(c_address,"w",newline='') as csv_file:
         text_file.truncate(0)
         csv_file.truncate(0)
         writer = csv.writer(csv_file,delimiter=' ', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(["Linkedin_Profile_Text"])   
 
-
-    for i in range(length): #Repeat each operation for each document.
+#Extract text from PDF file
+def generate_output(directory,fname,t_address,c_address):
+    for i in range(len(fname)): #Repeat each operation for each document.
         text_from_pdf = pdf_to_text(os.path.join(directory,fname[i])) #Extract text with PDF_to_text Function call
-        decoded_text = text_from_pdf.decode("utf-8")     #Decode result fromf bytes to text
+        decoded_text = text_from_pdf.decode("utf-8")     #Decode result from bytes to text
 
-
-        s = decoded_text#StringIO(decoded_text)
+        s = decoded_text
         s = s.lower().strip()
         lines = s.split("\n")
         non_empty_lines = [line for line in lines if line.strip() != ""]
@@ -72,15 +55,36 @@ if __name__ == "__main__":
         for line in non_empty_lines:
             s += line + " "
         #s = s[:-2]
-        #print(s)
-        print(i)
-        with open("output.txt", "a", encoding="utf-8",newline='\n') as text_file:
+        with open(t_address, "a", encoding="utf-8",newline='\n') as text_file:
             text_file.truncate(0)
             text_file.writelines(s)
-         
-        with open("output.txt", "r",newline='\n') as text_file, open("output1.csv","a",newline='') as csv_file:
+
+        with open(t_address, "r",newline='\n') as text_file, open(c_address,"a",newline='') as csv_file:
             writer = csv.writer(csv_file,delimiter=' ', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(text_file)
+
+if __name__ == "__main__":
+
+    directory = r"C:\Users\sunee\OneDrive\Desktop\Workspace\Code_Vector Screening\codevector_screening\Linkedin_Profiles"
+    fname = os.listdir(directory) 
+    fname.sort(key=lambda f: int(re.sub('\D', '', f)))
+ 
+    (text_file,csv_file) = ("output.txt","output1.csv")
+
+    initiate_output_files(fname,text_file,csv_file)
+
+    generate_output(directory,fname,text_file,csv_file)
+
+
+ 
+
+
+    
+
+
+
+         
+
 
 
 
