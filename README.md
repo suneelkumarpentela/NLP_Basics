@@ -2,14 +2,11 @@ This Repository is constructed as a screeening to the course designed by Code Ve
 
 The screening consists of four tasks as described below:
 
-Task 1 :
+******************** EXECUTION ***********************
 
-Downloading pdf versions of 50 random Linkedin profiles into a folder
+1) The profiles of 50 random people were manually downloaded and present in "Linkedin_Profiles" folder.
 
-Task 2:
+2) Execution of "text_extraction.py" generates "output.txt","output1.csv"
 
-Create a csv file containing text from PDF's extracted from Task 1.
-
-Task 3:
-
-Extract the most frequent words, essential words from the extracted text in the above task.
+output.txt : Text file containing text extracted from one PDF profile.
+output1.csv : CSV file containing the data of all 50 profiles under "LinkedIn Profiles" label.
