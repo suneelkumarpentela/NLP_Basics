@@ -18,7 +18,3 @@ output2.csv : CSV file containing the data as well as frequent words in two colu
 4)Execution of "essential_words.py" generates "output3.csv"
 
 output3.csv : CSV file containing the data,frequent words,essential words in three columns respectively.
-
-**NOTE**: I have spent ample amount of time on task 4 but due to time constraints and lack of knowledge regarding API ,I was not able to complete it.
-
-"""""api.py file and, uploads,downloads, templates folders""""" are related to task 4. I hope the content in those folders will be checked and relative marks be given.
