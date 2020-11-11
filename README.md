@@ -1,4 +1,4 @@
-The Repository consists of files required to extracting words and filtering frequent,essential words out of them from PDFs.
+The Repository consists of files required to extracting words and filtering frequent,essential words out of them from PDFs extracted from linkedin.
 
 To Use this repository, follow the below steps.
 
@@ -17,4 +17,4 @@ output2.csv : CSV file containing the data as well as frequent words in two colu
 
 4)Execution of "essential_words.py" generates "output3.csv"
 
-output3.csv : CSV file containing the data,frequent words,essential words in three columns respectively.
+output3.csv : CSV file containing the data,frequent words,essential words in three columns respectively. 
